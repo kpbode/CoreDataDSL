@@ -15,18 +15,22 @@ SPEC_BEGIN(CoreDataDSLSpec)
 
         it(@"should a return a valid NSManagedObjectModel", ^{
 
+            static NSString *BookEntityName = @"Book";
+            static NSString *PageEntityName = @"Page";
+            static NSString *TitleAttributeName = @"title";
+
             NSManagedObjectModel *model = buildCoreDataModel(
 
                     withEntities(
 
-                            Entity(@"Book").withAttributes(
-                                    Attribute(@"title").withType(NSStringAttributeType), nil
+                            Entity(BookEntityName).withAttributes(
+                                    Attribute(TitleAttributeName).withType(NSStringAttributeType), nil
                             ),
-                            Entity(@"Page"),
+                            Entity(PageEntityName),
                             nil),
 
                     withRelationShips(
-                            RelationShip().from(@"Book").to(@"Page")
+                            RelationShip().from(BookEntityName).to(PageEntityName)
                     ),
 
                     nil
@@ -35,10 +39,10 @@ SPEC_BEGIN(CoreDataDSLSpec)
             [[model shouldNot] beNil];
             [[model.entities should] haveCountOf:2];
 
-            NSEntityDescription *bookEntityDescription = model.entitiesByName[@"Book"];
+            NSEntityDescription *bookEntityDescription = model.entitiesByName[BookEntityName];
             [[bookEntityDescription shouldNot] beNil];
 
-            NSAttributeDescription *titleAttributeDescription = bookEntityDescription.attributesByName[@"title"];
+            NSAttributeDescription *titleAttributeDescription = bookEntityDescription.attributesByName[TitleAttributeName];
             [[titleAttributeDescription shouldNot] beNil];
             [[theValue(titleAttributeDescription.attributeType) should] equal:theValue(NSStringAttributeType)];
 
