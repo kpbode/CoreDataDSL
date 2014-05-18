@@ -8,6 +8,6 @@ extern KPBAttributeBuilder *Attribute(NSString *name);
 
 @property (nonatomic, copy) KPBAttributeBuilder *(^withType)(NSAttributeType type);
 
-- (NSAttributeDescription *)buildAttributeDescription;
+- (void)buildAttributeDescriptionForEntity:(NSEntityDescription *)entityDescription;
 
 @end

@@ -82,7 +82,7 @@ KPBNSManagedObjectModelRelationShipsBuilder *withRelationShips(KPBRelationShipBu
     va_list arguments;
     va_start(arguments, relationShips);
 
-    KPBRelationShipBuilder *relationShipBuilder = [KPBRelationShipBuilder new];
+    KPBRelationShipBuilder *relationShipBuilder = relationShips;
 
     NSMutableArray *relationShipBuilders = [NSMutableArray array];
 

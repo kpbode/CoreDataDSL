@@ -35,14 +35,15 @@
 
 }
 
-- (NSAttributeDescription *)buildAttributeDescription
+- (void)buildAttributeDescriptionForEntity:(NSEntityDescription *)entityDescription
 {
     NSAttributeDescription *attributeDescription = [NSAttributeDescription new];
     attributeDescription.name = _name;
     attributeDescription.attributeType = _type;
 
-    return attributeDescription;
+    entityDescription.properties = [entityDescription.properties arrayByAddingObject:attributeDescription];
 }
+
 @end
 
 KPBAttributeBuilder *Attribute(NSString *name)

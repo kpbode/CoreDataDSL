@@ -18,6 +18,7 @@ SPEC_BEGIN(CoreDataDSLSpec)
             static NSString *BookEntityName = @"Book";
             static NSString *PageEntityName = @"Page";
             static NSString *TitleAttributeName = @"title";
+            static NSString *PagesRelationShipName = @"pages";
 
             NSManagedObjectModel *model = buildCoreDataModel(
 
@@ -30,7 +31,7 @@ SPEC_BEGIN(CoreDataDSLSpec)
                             nil),
 
                     withRelationShips(
-                            RelationShip().from(BookEntityName).to(PageEntityName)
+                            RelationShip(PagesRelationShipName).from(BookEntityName).to(PageEntityName), nil
                     ),
 
                     nil
@@ -45,6 +46,10 @@ SPEC_BEGIN(CoreDataDSLSpec)
             NSAttributeDescription *titleAttributeDescription = bookEntityDescription.attributesByName[TitleAttributeName];
             [[titleAttributeDescription shouldNot] beNil];
             [[theValue(titleAttributeDescription.attributeType) should] equal:theValue(NSStringAttributeType)];
+
+            NSRelationshipDescription *pagesRelationShipDescription = bookEntityDescription.relationshipsByName[PagesRelationShipName];
+            [[pagesRelationShipDescription shouldNot] beNil];
+
 
         });
 

@@ -71,6 +71,7 @@
 {
     NSEntityDescription *entityDescription = [NSEntityDescription new];
     entityDescription.name = _name;
+    entityDescription.properties = @[];
 
     if (_parentEntityName) {
 
@@ -83,12 +84,9 @@
 
     for (KPBAttributeBuilder *attributeBuilder in _attributeBuilders) {
 
-        NSAttributeDescription *attributeDescription = [attributeBuilder buildAttributeDescription];
-        [attributeDescriptions addObject:attributeDescription];
+        [attributeBuilder buildAttributeDescriptionForEntity:entityDescription];
 
     }
-
-    entityDescription.properties = attributeDescriptions;
 
     managedObjectModel.entities = [managedObjectModel.entities arrayByAddingObject:entityDescription];
 
